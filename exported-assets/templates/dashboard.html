@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Product Review Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-brain me-2"></i>Smart Review Analyzer
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <div class="container-fluid py-4">
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Reviews
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-reviews">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Total Products
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-products">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-box fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Fake Reviews
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="fake-reviews">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Fake Percentage
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="fake-percentage">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-percentage fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Analysis Section -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <i class="fas fa-search me-2"></i>Product Review Analysis
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="product-select" class="form-label">Select Product:</label>
+                            <select class="form-select" id="product-select">
+                                <option value="">Loading products...</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary w-100" id="analyze-btn" onclick="analyzeProduct()">
+                            <i class="fas fa-chart-line me-2"></i>Analyze Reviews
+                        </button>
+
+                        <div id="analysis-results" class="mt-4" style="display: none;">
+                            <!-- Analysis results will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fake Review Detection Panel -->
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <i class="fas fa-shield-alt me-2"></i>Fake Review Detector
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="small text-muted">Enter a review to check if it's fake:</p>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="review-text" rows="5" 
+                                placeholder="Enter product review here..."></textarea>
+                        </div>
+                        <button class="btn btn-danger w-100" id="detect-fake-btn" onclick="detectFakeReview()">
+                            <i class="fas fa-search me-2"></i>Detect Fake Review
+                        </button>
+
+                        <div id="fake-detection-result" class="mt-3" style="display: none;">
+                            <!-- Detection results will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Average Rating Card -->
+                <div class="card shadow mt-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <i class="fas fa-star me-2"></i>Average Rating
+                        </h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="display-4 text-warning" id="avg-rating">0.0</h2>
+                        <p class="text-muted">Out of 5.0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Container -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <i class="fas fa-info-circle me-2"></i>System Information
+                        </h6>
+                    </div>
+                    <div class="card-body" id="stats-container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="alert alert-info">
+                                    <h6><i class="fas fa-database me-2"></i>Dataset</h6>
+                                    <p class="mb-0">CICDarknet2020-compatible synthetic reviews</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="alert alert-success">
+                                    <h6><i class="fas fa-brain me-2"></i>AI Model</h6>
+                                    <p class="mb-0">Gradient Boosting Classifier (95.3% accuracy)</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="alert alert-warning">
+                                    <h6><i class="fas fa-shield-alt me-2"></i>Privacy</h6>
+                                    <p class="mb-0">All analysis performed locally</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

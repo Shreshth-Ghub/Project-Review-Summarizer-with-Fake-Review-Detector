@@ -1,0 +1,206 @@
+/* Dashboard Specific Styles */
+
+body {
+    background-color: #f8f9fc;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.navbar {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+/* Statistics Cards */
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+.text-xs {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #d1d3e2;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.form-select {
+    border-radius: 0.5rem;
+    border: 1px solid #d1d3e2;
+    padding: 0.75rem 1rem;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #224abe, #4e73df);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, #1cc88a, #13855c);
+    border: none;
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.alert-info {
+    background: linear-gradient(45deg, #d1ecf1, #bee5eb);
+    color: #0c5460;
+}
+
+.alert-success {
+    background: linear-gradient(45deg, #d4edda, #c3e6cb);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+}
+
+/* Loading Spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Result Box */
+.result-box {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-top: 1rem;
+}
+
+.verdict-fake {
+    color: #dc3545;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.verdict-genuine {
+    color: #198754;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* Confidence Bar */
+.confidence-bar {
+    height: 30px;
+    border-radius: 0.5rem;
+    background: #e3e6f0;
+    overflow: hidden;
+    position: relative;
+}
+
+.confidence-fill {
+    height: 100%;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+/* Pros/Cons Lists */
+.pros-list, .cons-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.pros-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.pros-list li:before {
+    content: "✓ ";
+    color: #198754;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+.cons-list li:before {
+    content: "✗ ";
+    color: #dc3545;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+/* Badge Styles */
+.badge {
+    border-radius: 0.25rem;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}
